@@ -12,7 +12,6 @@ import (
 	"context"
 	"fmt"
 	pb "github.com/crow-misia/go-push-receiver/pb/checkin"
-	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"google.golang.org/protobuf/proto"
 	"io"
