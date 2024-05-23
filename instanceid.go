@@ -45,12 +45,7 @@ func (c *Client) checkIn(ctx context.Context, opt *checkInOption) (*pb.AndroidCh
 	id := int64(opt.androidID)
 	r := &pb.AndroidCheckinRequest{
 		Checkin: &pb.AndroidCheckinProto{
-			ChromeBuild: &pb.ChromeBuildProto{
-				Platform:      pb.ChromeBuildProto_PLATFORM_LINUX.Enum(),
-				ChromeVersion: proto.String(chromeVersion),
-				Channel:       pb.ChromeBuildProto_CHANNEL_STABLE.Enum(),
-			},
-			Type:       pb.DeviceType_DEVICE_CHROME_BROWSER.Enum(),
+			Type:       pb.DeviceType_DEVICE_ANDROID_OS.Enum(),
 			UserNumber: proto.Int32(0),
 		},
 		Fragment:         proto.Int32(0),
@@ -94,13 +89,13 @@ func (c *Client) checkIn(ctx context.Context, opt *checkInOption) (*pb.AndroidCh
 }
 
 func (c *Client) doRegister(ctx context.Context, androidID uint64, securityToken uint64) (*gcmRegisterResponse, error) {
-	appID := fmt.Sprintf("wp:receiver.push.com#%s", uuid.New())
+	appID := fmt.Sprintf("369367231553")
 
 	values := url.Values{}
-	values.Set("app", "org.chromium.linux")
+	values.Set("app", "com.ertelecom.smarthome")
 	values.Set("X-subtype", appID)
 	values.Set("device", fmt.Sprint(androidID))
-	values.Set("sender", fcmServerKey)
+	values.Set("sender", "369367231553")
 
 	res, err := c.post(ctx, registerURL, strings.NewReader(values.Encode()), func(header *http.Header) {
 		header.Set("Content-Type", "application/x-www-form-urlencoded")
